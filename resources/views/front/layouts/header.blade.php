@@ -53,7 +53,7 @@
   </nav>
 
   <!-- Page Header -->
-<header class="masthead" style="background-image: url(@yield('image'))">
+<header class="masthead" style="background-image: url(@yield('image',asset('front/img/home-bg.jpg')))">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">

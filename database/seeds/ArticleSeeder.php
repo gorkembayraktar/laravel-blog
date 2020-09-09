@@ -17,7 +17,7 @@ class ArticleSeeder extends Seeder
         //
         DB::table('articles')->delete();
         $faker = Faker::create();
-        for($i=0;$i<50;$i++):
+        for($i=0;$i<10;$i++):
             $title = $faker->sentence(6);
             DB::table('articles')->insert([
                 'category_id'=>rand(1,7),

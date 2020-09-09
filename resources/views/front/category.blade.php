@@ -1,6 +1,5 @@
 @extends('front.layouts.master')
-@section('title','Anasayfa')
-@section('image',asset('front/img/home-bg.jpg'))
+@section('title',$category->name.' kategorisi')
 @section('content')
 <div class="col-lg-8 col-md-10 mx-auto">
 
