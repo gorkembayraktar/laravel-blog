@@ -4,12 +4,19 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Backend Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+*/
+
+Route::get('/admin/panel','Back\Dashboard@index')->name('admin.dashboard');
+Route::get('/admin/giris','Back\Dashboard@login')->name('admin.login');
+
+
+/*
+|--------------------------------------------------------------------------
+| Front Routes
+|--------------------------------------------------------------------------
 |
 */
 
@@ -19,3 +26,5 @@ Route::post('/iletisim','Front\Homepage@contactpost')->name('contact.post');
 Route::get('/iletisim','Front\Homepage@contact')->name('contact');
 Route::get('/{category}/{slug}','Front\Homepage@single')->name('single');
 Route::get('/{sayfa}','Front\Homepage@page')->name('page');
+
+
