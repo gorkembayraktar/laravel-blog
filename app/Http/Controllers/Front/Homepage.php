@@ -13,7 +13,7 @@ class Homepage extends Controller
 {
 
     public function index(){
-        $data['articles'] = Article::orderBy('created_at','DESC')->get();
+        $data['articles'] = Article::orderBy('created_at','DESC')->paginate(5);
         $data['categories'] = $this->GetCategories();
         return view('front.homepage',$data);
     }
@@ -28,7 +28,7 @@ class Homepage extends Controller
     public function category($category){
         $category = Category::where('slug',$category)->first() ?? abort(403,'Not found');
         $data['category'] = $category;
-        $data['articles'] = Article::where('category_id',$category->id)->orderBy('created_at','DESC')->get();
+        $data['articles'] = Article::where('category_id',$category->id)->orderBy('created_at','DESC')->paginate(5);
         $data['categories'] = $this->GetCategories();
         return view('front.category',$data);
     }

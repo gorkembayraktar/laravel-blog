@@ -24,6 +24,10 @@
     @endif
     
     @endforeach
+    <div class="text-center">
+
+        {{$articles->links()}}
+    </div>
 @else
 
 <h1>Makale bulunamadı!</h1>
