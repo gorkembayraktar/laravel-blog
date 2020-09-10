@@ -37,7 +37,7 @@
         <ul class="navbar-nav ml-auto">
           @foreach ($pages as $page)
             <li class="nav-item">
-            <a class="nav-link" href="{{$page->slug}}">{{$page->title}}</a>
+            <a class="nav-link" href="{{route('page',$page->slug)}}">{{$page->title}}</a>
             </li>
           @endforeach
               

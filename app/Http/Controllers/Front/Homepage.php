@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 //Models
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Page;
+use App\Models\Contact;
 
 class Homepage extends Controller
 {
 
     public function __construct(){
-        view()->share('categories',$this->GetCategories());
+        view()->share('categories',Category::inRandomOrder()->get());
         view()->share('pages',Page::orderBy('order','ASC')->get());
     }
     
@@ -42,8 +43,34 @@ class Homepage extends Controller
         $data['page'] = Page::where('slug',$page)->first() ?? abort(404);
         return view('front.page',$data);
     }
-
-    private function GetCategories(){
-        return Category::inRandomOrder()->get();
+    public function contact(){
+        return view('front.contact');
     }
+    public function contactpost(Request $request){
+
+        $rules = [
+            "name"=>'required|min:5',
+            "email"=>'required|email',
+            "topic"=>'required',
+            "message"=>'required|min:5'
+        ];
+
+        $validate = Validator::make($request->post(),$rules);
+
+        if($validate->errors()){
+            return redirect()->route('contact')->withErrors($validate)->withInput();
+        }
+
+
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->topic = $request->topic;
+        $contact->message = $request->message;
+        $contact->save();
+        return redirect()->route('contact')->with('success','Mesajınız bize iletildi.');
+
+    }
+
+   
 }
