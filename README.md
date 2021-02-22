@@ -1,3 +1,11 @@
+Blog Eğitim videosu ile blog scripti hazırlama
+PHP ^ Laravel
+https://www.youtube.com/watch?v=-Xio6Jy3YjQ&list=PLl4iwH7T84H_9kcmp1wsS2pXdLDYDVQi_&index=12
+
+
+
+
+<hr>
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
