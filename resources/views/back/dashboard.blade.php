@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title','Panel');
+@section('title','Panel Tema Eğitim for example')
 @section('content')
     
           <!-- Content Row -->
