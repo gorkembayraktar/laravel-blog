@@ -13,6 +13,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Resim</th>
                                             <th>Kategori Adı</th>
                                             <th>Başlık</th>
                                             <th>İçerik</th>
@@ -26,9 +27,10 @@
                                     <tbody>
                                         @foreach($articles as $article)
                                         <tr>
+                                            <td><img src='{{asset($article->image)}}' height="50" width="50"/></td>
                                             <td>{{$article->getCategory->name}}</td>
                                             <td>{{$article->title}}</td>
-                                            <td>{{substr($article->content,0,100) . '...'}}</td>
+                                            <td>{{substr( strip_tags($article->content),0,100) . '...'}}</td>
                                             <td>{{$article->hit}}</td>
                                             <td>{!!$article->status == 1 ? '<span class="text-success">Aktif</span>':'<span class="text-danger">Pasif</span>'!!}</td>
                                             <td>{{ $article->created_at->diffForHumans()}}</td>

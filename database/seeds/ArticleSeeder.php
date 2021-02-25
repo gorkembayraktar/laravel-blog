@@ -14,7 +14,11 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
+        //DB::table('articles')->truncate();
+
+        
+     
         DB::table('articles')->delete();
         $faker = Faker::create();
         for($i=0;$i<25;$i++):

@@ -20,6 +20,8 @@
 
   <link href="{{asset('back')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+  @yield('css')
+  @toastr_css
 </head>
 
 <body id="page-top">

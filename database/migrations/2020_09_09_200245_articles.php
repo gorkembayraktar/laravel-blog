@@ -23,7 +23,6 @@ class Articles extends Migration
             $table->string('slug');
             $table->timestamps();
             $table->integer('status')->default(0)->comment("0 pasif , 1 aktif");
-
             $table->foreign('category_id')
             ->references('id')
             ->on('categories');
