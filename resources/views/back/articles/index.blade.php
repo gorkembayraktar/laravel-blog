@@ -32,13 +32,13 @@
                                             <td>{{$article->title}}</td>
                                             <td>{{substr( strip_tags($article->content),0,100) . '...'}}</td>
                                             <td>{{$article->hit}}</td>
-                                            <td>{!!$article->status == 1 ? '<span class="text-success">Aktif</span>':'<span class="text-danger">Pasif</span>'!!}</td>
+                                            <td><input type="checkbox" class="toggle-event" data-articleid="{{$article->id}}" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" @if($article->status) checked @endif /></td>
                                             <td>{{ $article->created_at->diffForHumans()}}</td>
                                             <td>{{$article->updated_at->diffForHumans()}}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a class="btn btn-sm btn-success text-light"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-info text-light"><i class="fa fa-pen"></i></a>
+                                                    <a href="{{route('admin.makaleler.edit',$article->id)}}" class="btn btn-sm btn-info text-light"><i class="fa fa-pen"></i></a>
                                                     <a class="btn btn-sm btn-danger text-light"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </td>
@@ -50,4 +50,32 @@
                             </div>
                         </div>
     </div>
+@endsection
+
+
+@section('css')
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+@endsection
+
+
+
+@section('javascript')
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+
+$(function() {
+
+    let adres = "{{route('admin.switch')}}";
+
+    $('.toggle-event').change(function() {
+       $.get(adres,{id:$(this).data('articleid'),status:$(this).prop('checked')}).then(function(data,text,xhr){
+        if(xhr.status === 200){
+            toastr.success('Güncellendi', 'Kayıt güncellendi.')
+        }
+       });
+    })
+  })
+
+</script>
 @endsection

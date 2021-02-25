@@ -65,8 +65,8 @@
 <script src="{{asset('back')}}/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{asset('back')}}/js/demo/chart-area-demo.js"></script>
-<script src="{{asset('back')}}/js/demo/chart-pie-demo.js"></script>
+<!--<script src="{{asset('back')}}/js/demo/chart-area-demo.js"></script>-->
+<!--<script src="{{asset('back')}}/js/demo/chart-pie-demo.js"></script>-->
  <!-- Page level custom scripts -->
 <script src="{{asset('back')}}/js/demo/datatables-demo.js"></script>
 

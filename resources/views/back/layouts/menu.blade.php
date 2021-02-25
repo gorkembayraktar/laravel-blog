@@ -37,7 +37,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Makle işlemleri</h6>
             <a class="collapse-item @if(Request::segment(2) == 'makaleler' and !Request::segment(3)) active @endif" href="{{route('admin.makaleler.index')}}">Tüm makaleler</a>
-            <a class="collapse-item @if(Request::segment(2) == 'makaleler' and Request::segment(3) == 'create') active @endif" href="{{route('admin.makaleler.create')}}">Makale oluştur</a>
+            <a class="collapse-item @if(Request::segment(2) == 'makaleler' and Request::segment(3) == 'olustur') active @endif" href="{{route('admin.makaleler.create')}}">Makale oluştur</a>
           </div>
         </div>
       </li>
