@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title','Tüm Makaleler')
+@section('title','Silinen Makaleler')
 @section('content')
 
   
@@ -7,7 +7,7 @@
   <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold float-right text-primary">{{$articles->count()}} makale bulundu.</h6>
-                            <a href="{{route('admin.trashed.article')}}" class="btn btn-sm btn-warning"><i class="fa fa-trash"></i> Geri dönüşüm kutusu</a>
+                            <a href="{{route('admin.makaleler.index')}}" class="btn btn-sm btn-info">Makaleler</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -20,10 +20,7 @@
                                             <th>Kategori Adı</th>
                                             <th>Başlık</th>
                                             <th>İçerik</th>
-                                            <th>Hit</th>
-                                            <th>Durum</th>
-                                            <th>Oluşturma tarih</th>
-                                            <th>Son düzenleme</th>
+                                            <th>Silinme tarih</th>
                                             <th>Aksiyon</th>
                                         </tr>
                                     </thead>
@@ -34,17 +31,12 @@
                                             <td>{{$article->getCategory->name}}</td>
                                             <td>{{$article->title}}</td>
                                             <td>{{substr( strip_tags($article->content),0,100) . '...'}}</td>
-                                            <td>{{$article->hit}}</td>
-                                            <td><input type="checkbox" class="toggle-event" data-articleid="{{$article->id}}" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" @if($article->status) checked @endif /></td>
-                                            <td>{{ $article->created_at->diffForHumans()}}</td>
-                                            <td>{{$article->updated_at->diffForHumans()}}</td>
+                                            <td>{{ $article->deleted_at->diffForHumans()}}</td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="{{route('single',[$article->getCategory->slug,$article->slug])}}" target="_blank" class="btn btn-sm btn-success text-light"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('admin.makaleler.edit',$article->id)}}" class="btn btn-sm btn-info text-light"><i class="fa fa-pen"></i></a>
-                                                   <!-- route http de tanımlı name ile gelir -->
-                                                    <a href="{{route('admin.article.delete',$article->id)}}" class="btn btn-sm btn-danger text-light"><i class="fa fa-times"></i></a>
-                                                    
+                                                    <a href="{{route('admin.article.recover',$article->id)}}" class="btn btn-sm btn-primary text-light">Kurtar</a>
+                                                    <a href="{{route('admin.article.delete.force',$article->id)}}" class="btn btn-sm btn-danger text-light"><i class="fa fa-times"></i></a>
+                                                   
                                                 </div>
                                             </td>
                                         </tr>

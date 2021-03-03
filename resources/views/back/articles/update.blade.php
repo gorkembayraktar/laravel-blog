@@ -30,7 +30,7 @@
                                         
                                         <option value="">Seçim yapınız</option>
                                         @foreach ($categories as $category)
-                                        <option value="{{$category->id}}" @if($category->id == $article->id) selected @endif>{{$category->name}}</option>
+                                        <option value="{{$category->id}}" @if($category->id == $article->category_id) selected @endif>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

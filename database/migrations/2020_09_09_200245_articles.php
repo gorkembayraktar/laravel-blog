@@ -22,6 +22,7 @@ class Articles extends Migration
             $table->integer('hit')->default(0);
             $table->string('slug');
             $table->timestamps();
+            $table->softDeletes();
             $table->integer('status')->default(0)->comment("0 pasif , 1 aktif");
             $table->foreign('category_id')
             ->references('id')

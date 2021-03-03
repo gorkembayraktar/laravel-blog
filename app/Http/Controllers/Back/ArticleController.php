@@ -9,6 +9,8 @@ use App\Models\Category;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\File;
+
 class ArticleController extends Controller
 {
     /**
@@ -137,6 +139,36 @@ class ArticleController extends Controller
         return;
     }
 
+    public function delete($id){
+        Article::find($id)->delete();
+        toastr()->success('Makale başarıyla silindi.');
+        return redirect()->route('admin.makaleler.index');
+    }
+
+    public function trashed(){
+        $articles = Article::onlyTrashed()->orderBy('deleted_at','DESC')->get();
+        return view('back.articles.trashed',compact('articles'));
+    }
+
+    public function recover($id){
+        Article::onlyTrashed()->find($id)->restore();
+        toastr()->success('Makale kurtarıldı');
+        return redirect()->route('admin.makaleler.index');
+    }
+    public function force_delete($id){
+        $article = Article::onlyTrashed()->find($id);
+        if(File::exists($article->image)){
+            File::delete(public_path($article->image));
+        }
+
+
+        $article->forceDelete();
+        
+        
+        toastr()->success('Makale yeryüzünden kaldırıldı.');
+        return redirect()->route('admin.trashed.article');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -146,5 +178,6 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+        echo $id;
     }
 }
