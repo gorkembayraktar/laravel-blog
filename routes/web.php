@@ -15,14 +15,20 @@ Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function(){
 
 Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('panel','Back\Dashboard@index')->name('dashboard');
+
+    // MAKALE ROUTES
     Route::get('makaleler/silinenler',"Back\ArticleController@trashed")->name('trashed.article');
     Route::resource('makaleler','Back\ArticleController');
     Route::get('/switch','Back\ArticleController@switch')->name('switch');
     Route::get('/article_delete/{id}','Back\ArticleController@delete')->name('article.delete');
     Route::get('/recoverarticle/{id}','Back\ArticleController@recover')->name('article.recover');
     Route::get('/article_delete_force/{id}','Back\ArticleController@force_delete')->name('article.delete.force');
-
+    // CATEGORY Routes
+    Route::get('/kategoriler','Back\CategoryController@index')->name('category.index');
+    Route::post('/kategoriler/create','Back\CategoryController@create')->name('category.create');
+    Route::get('/kategori/status','Back\CategoryController@switch')->name('category.switch');
     Route::get('cikis','Back\AuthController@logout')->name('logout');     
+
 
     /**
      * name => route üstünde kullanılır.

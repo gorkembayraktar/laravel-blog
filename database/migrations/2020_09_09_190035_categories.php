@@ -18,6 +18,7 @@ class Categories extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

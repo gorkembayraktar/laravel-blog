@@ -18,7 +18,7 @@ class AuthController extends Controller
             toastr()->success('Sisteme Hoş Geldin : '.Auth::user()->name);
             return redirect()->route('admin.dashboard');
         }
-        return redirect()->route('admin.login')->withErrors('Email adresi veya şifre hatalı');
+        return redirect()->route('admin.login')->withErrors('Email adresi veya şifre hatalı.');
     }
     public function logout(){
         Auth::logout();

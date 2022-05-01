@@ -26,7 +26,7 @@
                   <form class="user" method="post" action="{{route('admin.login.post')}}">
                     @csrf
                     <div class="form-group">
-                      <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Mail adresini gir">
+                      <input name="email"  type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Mail adresini gir">
                     </div>
                     <div class="form-group">
                       <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Şifreni gir">
