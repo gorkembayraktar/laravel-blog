@@ -49,7 +49,10 @@
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->articleCount()}}</td>
                                 <td><input type="checkbox" class="toggle-event" data-categoryid="{{$category->id}}" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" @if($category->status) checked @endif /></td>
-                                <td></td>
+                                <td>
+                                    <a data-category-id="{{$category->id}}"  title="Kategoriyi düzenle" class="btn btn-sm btn-primary edit-click"><i class="fa fa-edit text-white"></i></a>
+
+                                </td>
                                 
                             </tr>
                             @endforeach
@@ -63,6 +66,41 @@
     </div>
 
 </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" action="{{route('admin.category.update')}}">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Kategoriyi Düzenle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         
+                @csrf
+                <div class="form-group">
+                    <label>Kategori Adı</label>
+                    <input id="kategori" type="text" class="form-control" name="category" />
+                    <input id="kategori_id" name="id" type="hidden" />
+                </div>
+                <div class="form-group">
+                    <label>Kategori Slug</label>
+                    <input id="slug" type="text" class="form-control" name="slug" />
+                </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+          <input type="submit" class="btn btn-success" value="Kaydet" />
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
 
 
 @endsection
@@ -81,6 +119,30 @@
 <script>
 
 $(function() {
+
+    $(".edit-click").click(function(){
+        let id = $(this).data('category-id');
+
+        $.ajax({
+            type:'GET',
+            
+            url:'{{route('admin.category.getdata')}}',
+            data:{id:id},
+            dataType: "json",
+
+            success:function(data){
+                $("#kategori").val(data.name);
+                $("#slug").val(data.slug);
+                $("#kategori_id").val(data.id);
+                $("#editModal").modal();
+
+            },
+            error:function(data){
+
+            }
+        });
+    });
+
 
     let adres = "{{route('admin.category.switch')}}";
 
