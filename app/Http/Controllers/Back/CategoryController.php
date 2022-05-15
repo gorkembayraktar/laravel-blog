@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Article;
 
 use Illuminate\Support\Str;
 
@@ -50,6 +51,25 @@ class CategoryController extends Controller
         toastr()->success('Kategori başarılı şekilde güncellendi.');
         return redirect()->back();
 
+    }
+    public function delete(Request $request){
+        $category = Category::findOrFail($request->id);
+        if($category->id == 1){
+            toastr()->error('Bu kategori silinemez');
+            return redirect()->back();
+        }
+        $count = $category->articleCount();
+        if($count > 0 ){
+            Article::where('category_id',$category->id)->update(['category_id' => 1]);
+            $defaultCategory = Category::find(1);
+            toastr()->success("Kategori başarılı şekilde silindi.","Bu kategoriye ait $count makale  $defaultCategory->name kategorisine taşındı. ");
+        }
+        $category->delete();
+        
+        if($count == 0){
+            toastr()->success("Kategori başarılı şekilde silindi.");
+        }        
+        return redirect()->back();
     }
 
     public function getData(Request $request){

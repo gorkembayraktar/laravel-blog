@@ -27,6 +27,7 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('/kategoriler','Back\CategoryController@index')->name('category.index');
     Route::post('/kategoriler/create','Back\CategoryController@create')->name('category.create');
     Route::post('/kategoriler/update','Back\CategoryController@update')->name('category.update');
+    Route::post('/kategoriler/delete','Back\CategoryController@delete')->name('category.delete');
     Route::get('/kategori/status','Back\CategoryController@switch')->name('category.switch');
     Route::get('/kategori/getData','Back\CategoryController@getData')->name('category.getdata');
     Route::get('cikis','Back\AuthController@logout')->name('logout');     
