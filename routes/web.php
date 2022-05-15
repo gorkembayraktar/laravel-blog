@@ -32,7 +32,10 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('/kategori/getData','Back\CategoryController@getData')->name('category.getdata');
     Route::get('cikis','Back\AuthController@logout')->name('logout');     
 
+    // PAGE Routes
 
+    Route::get('/sayfalar','Back\PageController@index')->name('page.index');
+    Route::get('/sayfa/switch','Back\PageController@switch')->name('page.switch');
     /**
      * name => route üstünde kullanılır.
      */

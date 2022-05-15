@@ -24,7 +24,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        İçerik Yönetimi
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -49,6 +49,21 @@
           <span>Kategoriler</span>
         </a>
         
+      </li>
+
+       <!-- Nav Item - Pages Collapse Menu -->
+       <li class="nav-item">
+        <a class="nav-link @if(Request::segment(2) == 'sayfalar') in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseSayfalar" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-file"></i>
+          <span>Sayfalar</span>
+        </a>
+        <div id="collapseSayfalar" class="collapse @if(Request::segment(2) == 'sayfalar') show @endif" aria-labelledby="collapseSayfalar" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Sayfa işlemleri</h6>
+            <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and !Request::segment(3)) active @endif" href="{{route('admin.page.index')}}">Tüm sayfalar</a>
+            <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and Request::segment(3) == 'olustur') active @endif" href="{{route('admin.makaleler.create')}}">Makale oluştur</a>
+          </div>
+        </div>
       </li>
 
       <!-- Divider -->
