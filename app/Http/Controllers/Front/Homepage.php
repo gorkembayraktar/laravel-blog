@@ -11,6 +11,8 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Contact;
 
+use Mail;
+
 class Homepage extends Controller
 {
 
@@ -56,10 +58,21 @@ class Homepage extends Controller
         ];
 
         $validate = Validator::make($request->post(),$rules);
-
-        if($validate->errors()){
+        if($validate->fails()){
             return redirect()->route('contact')->withErrors($validate)->withInput();
         }
+
+        Mail::send([],[],function($message) use($request){
+            $message->from('iletisim@laravelblog.com','Blog Sitesi');
+            $message->to('byrktr.grkm@gmail.com');
+            $message->setBody(' Mesajı Gönderen : '.$request->name . " <br />
+            Mesajı gönderen mail : $request->email <br />
+            Mesaj konusu : $request->topic <br />
+            Mesaj : $request->message <br /></br>
+            Mesaj Gönderilme Tarihi : $request->created_at
+",'text/html');
+            $message->subject($request->name. 'İletişimden mesaj gönderdi!');
+        });
 
 
         $contact = new Contact;
@@ -68,6 +81,8 @@ class Homepage extends Controller
         $contact->topic = $request->topic;
         $contact->message = $request->message;
         $contact->save();
+
+
         return redirect()->route('contact')->with('success','Mesajınız bize iletildi.');
 
     }
