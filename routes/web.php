@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 */
+
+
 Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function(){
     Route::get('giris','Back\Dashboard@login')->name('login');
     Route::post('giris','Back\AuthController@loginPost')->name('login.post');
+
+
 });
 
 Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
@@ -30,7 +34,7 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::post('/kategoriler/delete','Back\CategoryController@delete')->name('category.delete');
     Route::get('/kategori/status','Back\CategoryController@switch')->name('category.switch');
     Route::get('/kategori/getData','Back\CategoryController@getData')->name('category.getdata');
-    Route::get('cikis','Back\AuthController@logout')->name('logout');     
+   
 
     // PAGE Routes
 
@@ -42,6 +46,14 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('/sayfalar/sil/{id}','Back\PageController@delete')->name('page.delete');
     Route::get('/sayfa/siralama','Back\PageController@orders')->name('page.orders');
     Route::get('/sayfa/switch','Back\PageController@switch')->name('page.switch');
+
+
+
+    // CONFİG ROUTES
+    Route::get('/ayarlar','Back\ConfigController@index')->name('config.index');
+    Route::post('/ayarlar/update','Back\ConfigController@update')->name('config.update');
+
+    Route::get('cikis','Back\AuthController@logout')->name('logout');  
     /**
      * name => route üstünde kullanılır.
      */
@@ -56,11 +68,15 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
 |
 */
 
+Route::get('/site-bakimda',function(){
+    return view('front.offline');
+});
+
 Route::get('/', 'Front\Homepage@index')->name('homepage');
+
 Route::get('/kategori/{category}','Front\Homepage@category')->name('kategori');
 Route::post('/iletisim','Front\Homepage@contactpost')->name('contact.post');
 Route::get('/iletisim','Front\Homepage@contact')->name('contact');
 Route::get('/{category}/{slug}','Front\Homepage@single')->name('single');
 Route::get('/{sayfa}','Front\Homepage@page')->name('page');
-
 

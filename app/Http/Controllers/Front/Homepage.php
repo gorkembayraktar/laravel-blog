@@ -10,17 +10,30 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Contact;
+use App\Models\Config;
 
 use Mail;
 
 class Homepage extends Controller
 {
 
-    public function __construct(){
+    public function __construct(Request $request){
+
+        if(Config::find(1)->active == 0 ){
+            return redirect()->to('site-bakimda')->send();
+        }
+        //** eğer sınıfan erişmek isteseydik 
+        
+        // && $request->segment(1) != 'site-bakimda'
+
+        // ile kontrol etmemeiz gerekirdi
+
+        
+        // her classta paylaş
         view()->share('categories',Category::inRandomOrder()->get());
         view()->share('pages',Page::orderBy('order','ASC')->get());
     }
-    
+
     public function index(){
         $data['articles'] = Article::orderBy('created_at','DESC')->paginate(5);
         

@@ -71,8 +71,17 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Addons
+        Site
       </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link " href="{{route('admin.config.index')}}" aria-expanded="true" >
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Ayarlar</span>
+        </a>
+      </li>
+
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">

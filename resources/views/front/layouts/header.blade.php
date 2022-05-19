@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>@yield('title')</title>
+  <title>@yield('title') - {{$config->title}}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{{asset('front')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +21,8 @@
   <!-- Custom styles for this template -->
   <link href="{{asset('front')}}/css/clean-blog.min.css" rel="stylesheet">
 
+  <link rel="icon" type="image/png" href="{{asset($config->favicon)}}">
+
 </head>
 
 <body>
@@ -28,7 +30,13 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-    <a class="navbar-brand" href="{{route('homepage')}}">Laravel Blog</a>
+    <a class="navbar-brand" href="{{route('homepage')}}">
+      @if($config->logo!=null)
+      <img src="{{ asset($config->icon) }}" width="150" height = "50"/>
+      @else
+       {{$config->title}}
+      @endif
+    </a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
