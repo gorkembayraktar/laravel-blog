@@ -15,7 +15,7 @@ class PageController extends Controller
 {
     //
     public function index(){
-        $pages = Page::all();
+        $pages = Page::orderBy('order')->get();
         return view('back.pages.index',compact('pages'));
     }
     public function create(){
@@ -91,6 +91,15 @@ class PageController extends Controller
         
         toastr()->success('Sayfa başarılı şekilde kaldırıldı.');
         return redirect()->route('admin.page.index');
+    }
+    public function orders(Request $request){
+        $orders = $request->get('page');
+        foreach($orders as $key => $order){
+            Page::where('id',$order)->update(['order' => $key]);
+        }
+        return response()->json([
+            'status' => 'ok'
+        ],201);
     }
     public function switch(Request $request){
         $page = Page::findOrFail($request->id);

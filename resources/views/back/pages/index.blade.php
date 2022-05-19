@@ -16,20 +16,21 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Resim</th>
                                             <th>Sayfa Başlığı</th>    
-                                            <th>Sıra No</th>
+                                           
                                             <th>Durum</th>
                                             <th>Aksiyon</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="orders">
                                         @foreach($pages as $page)
-                                        <tr>
+                                        <tr id="page_{{$page->id}}">
+                                            <td><i class="fa fa-arrows-alt handle" style="cursor:move;"></i></td>
                                             <td><img src='{{asset($page->image)}}' height="50" width="50"/></td>
                                         
                                             <td>{{$page->title}}</td>
-                                            <td>{{$page->order}}</td>
                                             <td><input type="checkbox" class="toggle-event" data-pageid="{{$page->id}}" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" @if($page->status) checked @endif /></td>
                                     
                                             <td>
@@ -61,6 +62,25 @@
 
 @section('javascript')
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+$("#orders").sortable(
+    {
+        handle:'.handle',
+        update:function(){
+            const siralama = $("#orders").sortable('serialize');
+            $.get("{{ route('admin.page.orders') }}?"+siralama,function(data,status){
+                toastr.success('Sıralama Ayarı.', 'Sıralama kaydedildi.')
+            });
+        }
+    }
+);
+
+</script>
+
 
 <script>
 

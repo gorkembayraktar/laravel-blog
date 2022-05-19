@@ -40,6 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('/sayfalar/guncelle/{id}','Back\PageController@update')->name('page.update');
     Route::post('/sayfalar/guncelle/{id}','Back\PageController@updatePost')->name('page.edit.post');
     Route::get('/sayfalar/sil/{id}','Back\PageController@delete')->name('page.delete');
+    Route::get('/sayfa/siralama','Back\PageController@orders')->name('page.orders');
     Route::get('/sayfa/switch','Back\PageController@switch')->name('page.switch');
     /**
      * name => route üstünde kullanılır.
