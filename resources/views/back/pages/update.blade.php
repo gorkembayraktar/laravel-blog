@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title',$article->title.' makalesini güncelle')
+@section('title',$page->title.' sayfasını güncelle')
 @section('content')
 
   
@@ -17,37 +17,28 @@
                                 @endforeach
                             @endif
 
-                            <form method="POST" action="{{route('admin.makaleler.update',$article->id)}}" enctype="multipart/form-data">
-                                @method('PUT')
+                            <form method="POST" action="{{route('admin.page.edit.post',$page->id)}}" enctype="multipart/form-data">
+                                @method('POST')
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">Makale Başlığı</label>
-                                    <input type="text" name="title" value="{{$article->title}}" class="form-control" id="" />
+                                    <label for="">Sayfa Başlığı</label>
+                                    <input type="text" name="title" value="{{$page->title}}" class="form-control" id="" />
                                 </div>
+                               
                                 <div class="form-group">
-                                    <label for="">Makale Kategori</label>
-                                    <select name="category" class="form-control" id="">
-                                        
-                                        <option value="">Seçim yapınız</option>
-                                        @foreach ($categories as $category)
-                                        <option value="{{$category->id}}" @if($category->id == $article->category_id) selected @endif>{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Makale Fotoğrafı</label>
-                                    @if(!empty($article->image))
-                                    <img src="{{asset($article->image)}}" height="100" width="100" />
+                                    <label for="">Sayfa Fotoğrafı</label>
+                                    @if(!empty($page->image))
+                                    <img src="{{asset($page->image)}}" height="100" width="100" />
                                     @endif
                                     <input type="file" name="image" class="form-control" />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Makale İçeriği</label>
-                                    <textarea name="content" class="form-control" id="summernote" cols="30" rows="50">{{$article->content}}</textarea>
+                                    <label for="">Sayfa İçeriği</label>
+                                    <textarea name="content" class="form-control" id="summernote" cols="30" rows="50">{{$page->content}}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Makale oluştur</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Sayfa oluştur</button>
                                 </div>
 
                             </form>

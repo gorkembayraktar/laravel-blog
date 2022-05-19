@@ -35,6 +35,11 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     // PAGE Routes
 
     Route::get('/sayfalar','Back\PageController@index')->name('page.index');
+    Route::get('/sayfalar/olustur','Back\PageController@create')->name('page.create');
+    Route::post('/sayfalar/olustur','Back\PageController@post')->name('page.post');
+    Route::get('/sayfalar/guncelle/{id}','Back\PageController@update')->name('page.update');
+    Route::post('/sayfalar/guncelle/{id}','Back\PageController@updatePost')->name('page.edit.post');
+    Route::get('/sayfalar/sil/{id}','Back\PageController@delete')->name('page.delete');
     Route::get('/sayfa/switch','Back\PageController@switch')->name('page.switch');
     /**
      * name => route üstünde kullanılır.

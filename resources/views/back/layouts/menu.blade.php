@@ -61,7 +61,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Sayfa işlemleri</h6>
             <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and !Request::segment(3)) active @endif" href="{{route('admin.page.index')}}">Tüm sayfalar</a>
-            <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and Request::segment(3) == 'olustur') active @endif" href="{{route('admin.makaleler.create')}}">Makale oluştur</a>
+            <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and Request::segment(3) == 'olustur') active @endif" href="{{route('admin.page.create')}}">Sayfa Oluştur</a>
           </div>
         </div>
       </li>

@@ -1,5 +1,5 @@
 @extends('back.layouts.master')
-@section('title','Makle Oluştur')
+@section('title','Sayfa Oluştur')
 @section('content')
 
   
@@ -17,33 +17,24 @@
                                 @endforeach
                             @endif
 
-                            <form method="POST" action="{{route('admin.makaleler.store')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('admin.page.post')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">Makale Başlığı</label>
+                                    <label for="">Sayfa Başlığı</label>
                                     <input type="text" name="title" class="form-control" id="" />
                                 </div>
+                               
                                 <div class="form-group">
-                                    <label for="">Makale Kategori</label>
-                                    <select name="category" class="form-control" id="">
-                                        
-                                        <option value="">Seçim yapınız</option>
-                                        @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Makale Fotoğrafı</label>
+                                    <label for="">Sayfa Fotoğrafı</label>
                                     <input type="file" name="image" class="form-control" required />
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Makale İçeriği</label>
+                                    <label for="">Sayfa İçeriği</label>
                                     <textarea name="content" class="form-control" id="summernote" cols="30" rows="50"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block">Makale oluştur</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Sayfa oluştur</button>
                                 </div>
 
                             </form>
