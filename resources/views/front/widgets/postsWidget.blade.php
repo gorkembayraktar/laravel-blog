@@ -30,6 +30,6 @@
     </div>
 @else
 
-<h1>Makale bulunamadı!</h1>
+<h1 class="alert alert-danger">Makale bulunamadı!</h1>
 
 @endif

@@ -30,13 +30,17 @@ class Homepage extends Controller
 
         
         // her classta paylaş
-        view()->share('categories',Category::inRandomOrder()->get());
-        view()->share('pages',Page::orderBy('order','ASC')->get());
+        view()->share('categories',Category::where('status',1)->inRandomOrder()->get());
+        view()->share('pages',Page::orderBy('order','ASC')->where('status',1)->get());
     }
 
     public function index(){
-        $data['articles'] = Article::orderBy('created_at','DESC')->paginate(5);
-        
+        $data['articles'] = Article::with('getCategory')->whereHas(
+            'getCategory',function($query){
+                $query->where('status',1);
+            }   
+        )->orderBy('created_at','DESC')->where('status',1)->paginate(5);
+        $data['articles']->withPath(url('sayfa'));
         return view('front.homepage',$data);
     }
     public function single($category,$slug){
@@ -50,7 +54,7 @@ class Homepage extends Controller
     public function category($category){
         $category = Category::where('slug',$category)->first() ?? abort(403);
         $data['category'] = $category;
-        $data['articles'] = Article::where('category_id',$category->id)->orderBy('created_at','DESC')->paginate(5);
+        $data['articles'] = Article::where('category_id',$category->id)->where('status',1)->orderBy('created_at','DESC')->paginate(5);
 
         return view('front.category',$data);
     }

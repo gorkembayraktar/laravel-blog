@@ -20,7 +20,7 @@ class CategoryController extends Controller
 
     public function switch(Request $request){
         $category = Category::findOrFail($request->id);
-        $category->status = $request->status == "true" ?  1 : 0;
+        $category->status = $category->status == 1 ?  0 : 1;
         $category->save();
     }
     public function create(Request $request){

@@ -133,7 +133,7 @@ class ArticleController extends Controller
 
     public function switch(Request $request){
         $article = Article::findOrFail($request->id);
-        $article->status = $request->status ? 1 : 0;
+        $article->status =  $article->status == 0 ? 1 : 0;
         $article->save();
         
         return;

@@ -103,8 +103,12 @@ class PageController extends Controller
     }
     public function switch(Request $request){
         $page = Page::findOrFail($request->id);
-        $page->status = !$request->status;    
+        $page->status = $page->status == 1 ? 0 : 1;
         $page->save();
+        return response()->json([
+            'status' => 'ok',
+            'data' => $page
+        ],201);
         
     }
 }
