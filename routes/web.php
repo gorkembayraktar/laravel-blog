@@ -47,11 +47,16 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('/sayfa/siralama','Back\PageController@orders')->name('page.orders');
     Route::get('/sayfa/switch','Back\PageController@switch')->name('page.switch');
 
-
+    // Profile routes
+    Route::get('/profil','Back\ProfileController@index')->name('profile.index');
+    Route::get('/profil/guncelle','Back\ProfileController@update')->name('profile.update');
+    Route::post('/profil/guncelle','Back\ProfileController@updatePost')->name('profile.update.post');
+    Route::post('/profil/guncelle/sifre','Back\ProfileController@password')->name('profile.update.password');
 
     // CONFİG ROUTES
     Route::get('/ayarlar','Back\ConfigController@index')->name('config.index');
     Route::post('/ayarlar/update','Back\ConfigController@update')->name('config.update');
+    
 
     Route::get('cikis','Back\AuthController@logout')->name('logout');  
     /**
