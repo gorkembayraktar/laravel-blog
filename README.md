@@ -6,6 +6,8 @@ Projeyi locale dahil ettiğinizde veritabanı ayarlamasını yapmayı unutmayın
 
 ## HOST
 Url : laravelblog.gorkembayraktar.com
+
 AdminUrl: laravelblog.gorkembayraktar.com/admin/giris
+
 		---kullanıcı adı : demo@laravelblog.com
 		--sifre : sifre123
