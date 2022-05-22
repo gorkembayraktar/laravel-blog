@@ -5,9 +5,9 @@ Eğitim Kaynağı : [Youtube Codeigniter Hocası ](https://www.youtube.com/watch
 Projeyi locale dahil ettiğinizde veritabanı ayarlamasını yapmayı unutmayınız.
 
 ## HOST
-Url : laravelblog.gorkembayraktar.com
+Url : [laravelblog.gorkembayraktar.com](laravelblog.gorkembayraktar.com)
 
-AdminUrl: laravelblog.gorkembayraktar.com/admin/giris
+AdminUrl: [laravelblog.gorkembayraktar.com/admin/giris](laravelblog.gorkembayraktar.com/admin/giris)
 
 		---kullanıcı adı : demo@laravelblog.com
 		--sifre : sifre123
