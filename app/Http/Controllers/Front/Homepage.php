@@ -32,6 +32,7 @@ class Homepage extends Controller
         // her classta paylaş
         view()->share('categories',Category::where('status',1)->inRandomOrder()->get());
         view()->share('pages',Page::orderBy('order','ASC')->where('status',1)->get());
+        view()->share('config',Config::find(1));
     }
 
     public function index(){
