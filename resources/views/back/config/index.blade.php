@@ -75,10 +75,12 @@
                             </div>
                         </div>
                     </div>
+
+                    @if(App\Models\UserRole::hasRole("Admin Ayarlarını Düzenle",Auth::user()->roleCount))
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-success ">Güncelle</button>
                     </div>
-
+                    @endif
 
                 </form>
             

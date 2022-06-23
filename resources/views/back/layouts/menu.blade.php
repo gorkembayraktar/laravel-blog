@@ -27,6 +27,7 @@
         İçerik Yönetimi
       </div>
 
+      @if(App\Models\UserRole::hasRole("Makaleleri Görüntüle",Auth::user()->roleCount))
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link @if(Request::segment(2) == 'makaleler') in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -35,13 +36,18 @@
         </a>
         <div id="collapseTwo" class="collapse @if(Request::segment(2) == 'makaleler') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Makle işlemleri</h6>
+            <h6 class="collapse-header">Makale işlemleri</h6>
             <a class="collapse-item @if(Request::segment(2) == 'makaleler' and !Request::segment(3)) active @endif" href="{{route('admin.makaleler.index')}}">Tüm makaleler</a>
+            @if(App\Models\UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount))
             <a class="collapse-item @if(Request::segment(2) == 'makaleler' and Request::segment(3) == 'olustur') active @endif" href="{{route('admin.makaleler.create')}}">Makale oluştur</a>
+            @endif
           </div>
         </div>
       </li>
 
+      @endif
+
+      @if(App\Models\UserRole::hasRole("Kategorileri Görüntüle",Auth::user()->roleCount))
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link " @if(Request::segment(2) == "kategoriler") style="color:red !important" @endif href="{{route('admin.category.index')}}" >
@@ -51,6 +57,10 @@
         
       </li>
 
+      @endif
+
+      
+      @if(App\Models\UserRole::hasRole("Sayfaları Görüntüle",Auth::user()->roleCount))
        <!-- Nav Item - Pages Collapse Menu -->
        <li class="nav-item">
         <a class="nav-link @if(Request::segment(2) == 'sayfalar') in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseSayfalar" aria-expanded="true" aria-controls="collapseTwo">
@@ -61,19 +71,34 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Sayfa işlemleri</h6>
             <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and !Request::segment(3)) active @endif" href="{{route('admin.page.index')}}">Tüm sayfalar</a>
+            
+            @if(App\Models\UserRole::hasRole("Sayfaları Düzenle",Auth::user()->roleCount))
             <a class="collapse-item @if(Request::segment(2) == 'sayfalar' and Request::segment(3) == 'olustur') active @endif" href="{{route('admin.page.create')}}">Sayfa Oluştur</a>
+            @endif
           </div>
         </div>
       </li>
+      @endif
 
+      @if(App\Models\UserRole::hasRole("Kullanıcıları Görüntüle",Auth::user()->roleCount))
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link " @if(Request::segment(2) == "kullanicilar") style="color:red !important" @endif href="{{route('admin.users.index')}}" >
+            <i class="fas fa-fw fa-users"></i>
+            <span>Kullanıcılar</span>
+          </a>
+          
+        </li>
+      @endif
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+      @if(App\Models\UserRole::hasRole("Admin Ayarlarını Görüntüle",Auth::user()->roleCount))
       <!-- Heading -->
       <div class="sidebar-heading">
         Site
       </div>
-
+      
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link " href="{{route('admin.config.index')}}" aria-expanded="true" >
@@ -81,6 +106,7 @@
           <span>Ayarlar</span>
         </a>
       </li>
+      @endif
 
 
       <!-- Nav Item - Pages Collapse Menu -->

@@ -12,12 +12,16 @@ class DatabaseSeeder extends Seeder
     {
        
         // $this->call(UserSeeder::class);
-        $this->call([
+        /*$this->call([
             CategorySeeder::class,
             ArticleSeeder::class,
             PageSeeder::class,
             AdminSeeder::class,
             ConfigSeeder::class
+            ]);*/
+
+            $this->call([
+               RolesSeeder::class 
             ]);
     }
 }

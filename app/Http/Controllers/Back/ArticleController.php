@@ -11,6 +11,9 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\File;
 
+use App\Models\UserRole;
+use Auth;
+
 class ArticleController extends Controller
 {
     /**
@@ -20,6 +23,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        if( ! UserRole::hasRole("Makaleleri Görüntüle",Auth::user()->roleCount)){
+            return redirect()->route('admin.dashboard');
+        }
         $articles = Article::orderBy('created_at','ASC')->get();
         return view('back.articles.index',compact('articles'));
     }
@@ -31,6 +37,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+            return redirect()->route('admin.makaleler.index');
+        }
         $categories = Category::all();
         return view('back.articles.create',compact('categories'));
     }
@@ -43,6 +52,10 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapabilecek yetkiniz bulunmamaktır.','Başarısız');
+            return redirect()->route("admin.makaleler.index");
+        }
 
         $request->validate([
             'title' => 'min:3',
@@ -88,6 +101,11 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapabilecek yetkiniz bulunmamaktır.','Başarısız');
+            return redirect()->route("admin.makaleler.index");
+        }
+
         $article = Article::findOrFail($id);
         $categories = Category::all();
 
@@ -103,6 +121,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapabilecek yetkiniz bulunmamaktır.','Başarısız');
+            return redirect()->route("admin.makaleler.index");
+        }
+
         $request->validate([
             'title' => 'min:3'
         ]);
@@ -132,6 +156,11 @@ class ArticleController extends Controller
     }
 
     public function switch(Request $request){
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+           
+            return;
+        }
+
         $article = Article::findOrFail($request->id);
         $article->status =  $article->status == 0 ? 1 : 0;
         $article->save();
@@ -140,22 +169,38 @@ class ArticleController extends Controller
     }
 
     public function delete($id){
+
+        if( ! UserRole::hasRole("Makaleleri Sil",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapabilecek yetkiniz bulunmamaktır.','Başarısız');
+            return redirect()->route("admin.makaleler.index");
+        }
         Article::find($id)->delete();
         toastr()->success('Makale başarıyla silindi.');
         return redirect()->route('admin.makaleler.index');
     }
 
     public function trashed(){
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+            return redirect()->route("admin.makaleler.index");
+        }
         $articles = Article::onlyTrashed()->orderBy('deleted_at','DESC')->get();
         return view('back.articles.trashed',compact('articles'));
     }
 
     public function recover($id){
+        if( ! UserRole::hasRole("Makaleleri Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapabilecek yetkiniz bulunmamaktır.','Başarısız');
+            return redirect()->route("admin.makaleler.index");
+        }
         Article::onlyTrashed()->find($id)->restore();
         toastr()->success('Makale kurtarıldı');
         return redirect()->route('admin.makaleler.index');
     }
     public function force_delete($id){
+        if( ! UserRole::hasRole("Makaleleri Sil",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapabilecek yetkiniz bulunmamaktır.','Başarısız');
+            return redirect()->route("admin.makaleler.index");
+        }
         $article = Article::onlyTrashed()->find($id);
         if(File::exists($article->image)){
             File::delete(public_path($article->image));

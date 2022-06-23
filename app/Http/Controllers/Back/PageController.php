@@ -11,6 +11,10 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\File;
 
+use App\Models\UserRole;
+
+use Auth;
+
 class PageController extends Controller
 {
     //
@@ -23,6 +27,10 @@ class PageController extends Controller
     }
     public function update($id){
         $page = Page::findOrFail($id);
+
+        if( ! UserRole::hasRole("Sayfaları Düzenle",Auth::user()->roleCount)){
+            return redirect()->back();
+        }
         return view('back.pages.update',compact('page'));
     }
     public function updatePost(Request $request, $id){
@@ -37,6 +45,12 @@ class PageController extends Controller
         endif;
 
         $page = Page::findOrFail($id);
+
+
+        if( ! UserRole::hasRole("Sayfaları Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Sayfayı düzenlemek için yeterli izne sahip değilsiniz.','Başarısız');
+            return redirect()->route('admin.page.index');
+        }
 
         $page->title = $request->title;
         $page->content = $request->content;
@@ -81,6 +95,14 @@ class PageController extends Controller
     }
     public function delete($id){
         $page = Page::find($id);
+
+
+
+        if( ! UserRole::hasRole("Sayfaları Sil",Auth::user()->roleCount)){
+            toastr()->error('Sayfayı silmek için yeterli izne sahip değilsiniz.','Başarısız');
+            return redirect()->route('admin.page.index');
+        }
+
         if(File::exists($page->image)){
             File::delete(public_path($page->image));
         }
@@ -93,6 +115,15 @@ class PageController extends Controller
         return redirect()->route('admin.page.index');
     }
     public function orders(Request $request){
+
+        if( ! UserRole::hasRole("Sayfaları Düzenle",Auth::user()->roleCount)){
+            return response()->json([
+                'status' => 'error',
+                'message'=>'Sayfayı düzenlemek için yeterli izne sahip değilsiniz.'
+            ],403);
+        }
+
+
         $orders = $request->get('page');
         foreach($orders as $key => $order){
             Page::where('id',$order)->update(['order' => $key]);
@@ -102,6 +133,14 @@ class PageController extends Controller
         ],201);
     }
     public function switch(Request $request){
+
+        if( ! UserRole::hasRole("Sayfaları Düzenle",Auth::user()->roleCount)){
+            return response()->json([
+                'status' => 'error',
+                'message'=>'Sayfayı düzenlemek için yeterli izne sahip değilsiniz.'
+            ],403);
+        }
+        
         $page = Page::findOrFail($request->id);
         $page->status = $page->status == 1 ? 0 : 1;
         $page->save();

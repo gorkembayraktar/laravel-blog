@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+
+    
     }
 
     /**

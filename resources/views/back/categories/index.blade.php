@@ -50,9 +50,12 @@
                                 <td>{{$category->articleCount()}}</td>
                                 <td><input type="checkbox" class="toggle-event" data-categoryid="{{$category->id}}" data-on="Aktif" data-off="Pasif" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" @if($category->status) checked @endif /></td>
                                 <td>
+                                    @if(App\Models\UserRole::hasRole("Kategorileri Düzenle",Auth::user()->roleCount))
                                     <a data-category-id="{{$category->id}}"  title="Kategoriyi düzenle" class="btn btn-sm btn-primary edit-click"><i class="fa fa-edit text-white"></i></a>
-                                    <a data-category-name="{{$category->name}}" data-category-id="{{$category->id}}" data-category-count="{{$category->articleCount()}}" title="Kategoriyi sil" class="btn btn-sm btn-danger remove-click"><i class="fa fa-times text-danger"></i></a>
-
+                                    @endif
+                                    @if(App\Models\UserRole::hasRole("Kategorileri Sil",Auth::user()->roleCount))
+                                    <a data-category-name="{{$category->name}}" data-category-id="{{$category->id}}" data-category-count="{{$category->articleCount()}}" title="Kategoriyi sil" class="btn btn-sm btn-danger remove-click"><i class="fa fa-times text-white"></i></a>
+                                    @endif
                                 </td>
                                 
                             </tr>

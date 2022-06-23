@@ -35,11 +35,15 @@
                                     
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="{{route('page',$page->slug)}}" target="_blank" class="btn btn-sm btn-success text-light"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('admin.page.update',$page->id)}}" class="btn btn-sm btn-info text-light"><i class="fa fa-pen"></i></a>
-                                                   <!-- route http de tanımlı name ile gelir -->
-                                                    <a href="{{route('admin.page.delete',$page->id)}}" class="btn btn-sm btn-danger text-light"><i class="fa fa-times"></i></a>
                                                     
+                                                    <a href="{{route('page',$page->slug)}}" target="_blank" class="btn btn-sm btn-success text-light"><i class="fa fa-eye"></i></a>
+                                                    @if(App\Models\UserRole::hasRole("Sayfaları Düzenle",Auth::user()->roleCount))
+                                                    <a href="{{route('admin.page.update',$page->id)}}" class="btn btn-sm btn-info text-light"><i class="fa fa-pen"></i></a>
+                                                    @endif
+                                                    <!-- route http de tanımlı name ile gelir -->
+                                                    @if(App\Models\UserRole::hasRole("Sayfaları Sil",Auth::user()->roleCount))
+                                                    <a href="{{route('admin.page.delete',$page->id)}}" class="btn btn-sm btn-danger text-light"><i class="fa fa-times"></i></a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

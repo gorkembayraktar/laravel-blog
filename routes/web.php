@@ -47,6 +47,9 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
     Route::get('/sayfa/siralama','Back\PageController@orders')->name('page.orders');
     Route::get('/sayfa/switch','Back\PageController@switch')->name('page.switch');
 
+    Route::get('/kullanicilar','Back\UsersController@index')->name('users.index');
+    Route::get('/kullanicilar/rol/{id}','Back\UsersController@role')->name('users.roles');
+    Route::post('/kullanicilar/rol/{id}','Back\UsersController@roleUpdate')->name('users.role.update');
     // Profile routes
     Route::get('/profil','Back\ProfileController@index')->name('profile.index');
     Route::get('/profil/guncelle','Back\ProfileController@update')->name('profile.update');

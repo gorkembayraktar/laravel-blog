@@ -7,15 +7,24 @@ use Illuminate\Http\Request;
 use App\Models\Config;
 
 use Illuminate\Support\Str;
-
+use App\Models\UserRole;
+use Auth;
 class ConfigController extends Controller
 {
     //
     public function index(){
+        if( ! UserRole::hasRole("Admin Ayarlarını Görüntüle",Auth::user()->roleCount)){
+            return redirect()->route('admin.dashboard');
+        }
         $config = Config::find(1);
         return view('back.config.index',compact('config'));
     } 
     public function update(Request $request){
+        if( ! UserRole::hasRole("Admin Ayarlarını Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapmak için yetkiniz bulunmamaktadır.');
+
+            return redirect()->back();
+        }
        $config = Config::find(1);
        $config->title = $request->title;
        $config->active = $request->active;

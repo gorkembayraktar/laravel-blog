@@ -9,21 +9,34 @@ use App\Models\Article;
 
 use Illuminate\Support\Str;
 
+use App\Models\UserRole;
+use Auth;
+
 class CategoryController extends Controller
 {
     //
 
     public function index(){
+        if( ! UserRole::hasRole("Kategorileri Görüntüle",Auth::user()->roleCount)){
+            return redirect()->route('admin.dashboard');
+        }
         $categories = Category::all();
         return view('back.categories.index',compact('categories'));
     }
 
     public function switch(Request $request){
+        if( ! UserRole::hasRole("Kategorileri Düzenle",Auth::user()->roleCount)){
+            return;
+        }
         $category = Category::findOrFail($request->id);
         $category->status = $category->status == 1 ?  0 : 1;
         $category->save();
     }
     public function create(Request $request){
+        if( ! UserRole::hasRole("Kategorileri Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapmak için yetkiniz bulunmamaktadır.');
+             return redirect()->back();
+        }
         $isExist = Category::whereSlug(Str::slug($request->category))->first();
         if($isExist){
             toastr()->error($request->category.' adından bir kategori zaten bulunuyor.');
@@ -38,6 +51,10 @@ class CategoryController extends Controller
 
     }
     public function update(Request $request){
+        if( ! UserRole::hasRole("Kategorileri Düzenle",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapmak için yetkiniz bulunmamaktadır.');
+             return redirect()->back();
+        }
         $isSlug = Category::whereSlug(Str::slug($request->slug))->whereNotIn('id',[$request->id])->first();
         $isName = Category::whereName($request->category)->whereNotIn('id',[$request->id])->first();
         if($isSlug || $isName){
@@ -53,7 +70,14 @@ class CategoryController extends Controller
 
     }
     public function delete(Request $request){
+        
         $category = Category::findOrFail($request->id);
+
+        if( ! UserRole::hasRole("Kategorileri Sil",Auth::user()->roleCount)){
+            toastr()->error('Bu işlemi yapmak için yetkiniz bulunmamaktadır.');
+             return redirect()->back();
+        }
+
         if($category->id == 1){
             toastr()->error('Bu kategori silinemez');
             return redirect()->back();

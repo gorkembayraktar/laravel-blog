@@ -15,14 +15,14 @@ class Config extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('favicon');
-            $table->string('icon');
-            $table->string('facebook');
-            $table->string('instagram');
-            $table->string('youtube');
-            $table->string('github');
-            $table->integer('active');
+            $table->string('title')->default('');
+            $table->string('favicon')->default('');
+            $table->string('icon')->default('');
+            $table->string('facebook')->default('');
+            $table->string('instagram')->default('');
+            $table->string('youtube')->default('');
+            $table->string('github')->default('');
+            $table->integer('active')->default(1);
             $table->timestamps();
         });
     }
