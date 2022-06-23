@@ -11,3 +11,7 @@ AdminUrl: [https://laravelblog.gorkembayraktar.com/admin/giris](https://laravelb
 
 		---kullanıcı adı : demo@laravelblog.com
 		--sifre : sifre123
+
+
+CHANGE LOG 23.06.2022
+Kullanıcı rolleri eklendi.
